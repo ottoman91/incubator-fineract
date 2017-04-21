@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 
 public class DataValidatorBuilder {
 
-    public static final String VALID_INPUT_SEPERATOR = "_";
+    public static final String VALID_INPUT_SEPERATOR = "_"; 
     private final List<ApiParameterError> dataValidationErrors;
     private String resource;
     private String parameter;

@@ -37,31 +37,54 @@ import org.junit.Assert;
  */ 
 
 public class validateMinimumClientAgeTest {  
+    
+    @Test
+    public void AgeOfClient17(){ 
+
+        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
+        LocalDate currentDateTest = LocalDate.now();  
+        LocalDate client17YearsOldDob = currentDateTest.minusYears(17);
+
+        dataValidatorBuilderTest.validateMinimumClientAge(client17YearsOldDob);
+        Assert.assertTrue("The client's age data is not valid",dataValidationErrorsTest.size() > 0);
+    } 
 
     @Test
-    public void checkMinimumAgeOfClient(){  
+    public void AgeOfClient18(){ 
 
+        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
+        LocalDate currentDateTest = LocalDate.now();  
+        LocalDate client18YearsOldDob = currentDateTest.minusYears(18);  
 
-    List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();
+        dataValidatorBuilderTest.validateMinimumClientAge(client18YearsOldDob);
+        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+    } 
 
-    //need to complete the constructor properly
-    DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
+    @Test
+    public void AgeOfClient19(){ 
 
-    Random rand1 = new Random();
-    int invalidClientAge = rand1.nextInt(17) + 1; 
-    Random rand2 = new Random();
-    int validClientAge = rand2.nextInt(100) + 18;
-    LocalDate currentDateTest = LocalDate.now();
-    LocalDate validClientDateOfBirth = currentDateTest.minusYears(validClientAge);
-    LocalDate invalidClientDateOfBirth = currentDateTest.minusYears(invalidClientAge);  
+        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
 
-    //test for age that qualifies minimum client age criteria
-    dataValidatorBuilderTest.validateMinimumClientAge(validClientDateOfBirth);
-    
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
+        LocalDate currentDateTest = LocalDate.now();  
+        LocalDate client19YearsOldDob = currentDateTest.minusYears(19);
+        dataValidatorBuilderTest.validateMinimumClientAge(client19YearsOldDob);
+        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+    }   
 
+    @Test
+    public void AgeOfClient50(){ 
 
+        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
 
-    }
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
+        LocalDate currentDateTest = LocalDate.now();  
+        LocalDate client50YearsOldDob = currentDateTest.minusYears(50);
+        dataValidatorBuilderTest.validateMinimumClientAge(client50YearsOldDob);
+        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+    }  
 }
 
     
