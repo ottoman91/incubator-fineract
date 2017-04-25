@@ -1,12 +1,10 @@
 language: java 
 
 
-jdk:
- - oraclejdk8  
+jdk: oraclejdk8  
 
-before_script:
-  - chmod -R 777 ./travis_build.sh
-  - chmod +x gradlew
+before_script: chmod -R 777 ./travis_build.sh
 
+before_install: chmod +x gradlew
 
 script: /.travis_build.sh
