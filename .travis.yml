@@ -6,6 +6,7 @@ jdk:
 
 before_script:
   - chmod -R 777 ./travis_build.sh
+  - chmod +x gradlew
 
 
 script: /.travis_build.sh
