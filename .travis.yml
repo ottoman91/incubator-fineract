@@ -1,9 +1,12 @@
-language: java
+language: java 
+
+before_install:
+  - chmod +x gradlew
+
 jdk:
  - oraclejdk7  
 
 sudo: required
 
-before_install:
-  - chmod +x gradlew
+
 script: /.travis_build.sh
