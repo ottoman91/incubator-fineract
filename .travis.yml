@@ -22,8 +22,6 @@ language: java
 
 jdk: oraclejdk8  
 
-before_install: chmod +x gradle
-
 
 before_script: chmod -R 777 ./travis_build.sh
 
