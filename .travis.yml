@@ -14,16 +14,10 @@
 # KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
-
-
 language: java 
 
-
-jdk: oraclejdk8  
-
+jdk: oraclejdk8   
 
 before_script: chmod -R 777 ./travis_build.sh
-
 
 script: ./travis_build.sh
