@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/iDTLabssl/incubator-fineract.svg?branch==develop)](https://travis-ci.org/iDTLabssl/incubator-fineract)
+
 Apache Fineract: A Platform for Microfinance
 ============
 
