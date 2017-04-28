@@ -47,7 +47,7 @@ public class validateMinimumClientAgeTest {
         LocalDate client17YearsOldDob = currentDateTest.minusYears(17);
 
         dataValidatorBuilderTest.validateMinimumClientAge(client17YearsOldDob);
-        Assert.assertTrue("The client's age data is not valid",dataValidationErrorsTest.size() > 0);
+        Assert.assertTrue("Failed to reject client with age of 17 years",dataValidationErrorsTest.size() > 0);
     } 
 
     @Test
@@ -59,7 +59,7 @@ public class validateMinimumClientAgeTest {
         LocalDate client18YearsOldDob = currentDateTest.minusYears(18);  
 
         dataValidatorBuilderTest.validateMinimumClientAge(client18YearsOldDob);
-        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+        Assert.assertTrue("Failed to confirm client with age of 18 years",dataValidationErrorsTest.size() == 0);
     } 
 
     @Test
@@ -71,7 +71,7 @@ public class validateMinimumClientAgeTest {
         LocalDate currentDateTest = LocalDate.now();  
         LocalDate client19YearsOldDob = currentDateTest.minusYears(19);
         dataValidatorBuilderTest.validateMinimumClientAge(client19YearsOldDob);
-        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+        Assert.assertTrue("Failed to confirm client with age of 19 years",dataValidationErrorsTest.size() == 0);
     }   
 
     @Test
@@ -83,7 +83,7 @@ public class validateMinimumClientAgeTest {
         LocalDate currentDateTest = LocalDate.now();  
         LocalDate client50YearsOldDob = currentDateTest.minusYears(50);
         dataValidatorBuilderTest.validateMinimumClientAge(client50YearsOldDob);
-        Assert.assertTrue("The client's age data is valid",dataValidationErrorsTest.size() == 0);
+        Assert.assertTrue("Failed to confirm client with age of 50 years",dataValidationErrorsTest.size() == 0);
     }  
 }
 
