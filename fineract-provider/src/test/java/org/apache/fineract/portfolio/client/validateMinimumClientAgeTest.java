@@ -25,7 +25,10 @@ import java.lang.Math;
 import java.util.Random;
 
 import org.apache.fineract.infrastructure.core.service.DateUtils;
+import org.apache.fineract.infrastructure.core.data.ApiParameterError;
 import org.apache.fineract.infrastructure.core.data.DataValidatorBuilder;
+import org.apache.fineract.portfolio.client.api.ClientApiConstants;
+
 
 import org.joda.time.LocalDate; 
 import org.junit.Test;
@@ -36,55 +39,61 @@ import org.junit.Assert;
  * Test for data validation builder method for checking whether the minimum age of all new clients is 18
  */ 
 
-public class validateMinimumClientAgeTest {  
-    
-    @Test
-    public void AgeOfClient17(){ 
+public class validateMinimumClientAgeTest {
 
-        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
+
+    @Test
+    public void AgeOfClient17(){
+        final List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();
         DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
-        LocalDate currentDateTest = LocalDate.now();  
-        LocalDate client17YearsOldDob = currentDateTest.minusYears(19);
+        LocalDate currentDateTest = LocalDate.now();
+        LocalDate client17YearsOldDob = currentDateTest.minusYears(17);
+        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client17YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        Assert.assertFalse("Failed to reject client with age of 17 years", dataValidationErrorsTest.isEmpty());
 
-        dataValidatorBuilderTest.validateMinimumClientAge(client17YearsOldDob);
-        Assert.assertTrue("Failed to reject client with age of 17 years",dataValidationErrorsTest.size() > 0);
-    } 
+    }
 
-    @Test
-    public void AgeOfClient18(){ 
 
-        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
-        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
-        LocalDate currentDateTest = LocalDate.now();  
-        LocalDate client18YearsOldDob = currentDateTest.minusYears(15);
-
-        dataValidatorBuilderTest.validateMinimumClientAge(client18YearsOldDob);
-        Assert.assertTrue("Failed to confirm client with age of 18 years",dataValidationErrorsTest.size() == 0);
-    } 
 
     @Test
-    public void AgeOfClient19(){ 
+    public void AgeOfClient18(){
 
-        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
-
-        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
-        LocalDate currentDateTest = LocalDate.now();  
-        LocalDate client19YearsOldDob = currentDateTest.minusYears(5);
-        dataValidatorBuilderTest.validateMinimumClientAge(client19YearsOldDob);
-        Assert.assertTrue("Failed to confirm client with age of 19 years",dataValidationErrorsTest.size() == 0);
-    }   
+        final List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
+        LocalDate currentDateTest = LocalDate.now();
+        LocalDate client18YearsOldDob = currentDateTest.minusYears(18);
+        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client18YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        Assert.assertTrue("Failed to confirm client with age of 18 years", dataValidationErrorsTest.isEmpty());
+    }
 
     @Test
-    public void AgeOfClient50(){ 
+    public void AgeOfClient19(){
 
-        List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();  
+        final List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
+        LocalDate currentDateTest = LocalDate.now();
+        LocalDate client19YearsOldDob = currentDateTest.minusYears(19);
+        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client19YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        Assert.assertTrue("Failed to confirm client with age of 19 years", dataValidationErrorsTest.isEmpty());
 
-        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest); 
-        LocalDate currentDateTest = LocalDate.now();  
+    }
+
+    @Test
+    public void AgeOfClient50(){
+
+        final List<ApiParameterError> dataValidationErrorsTest = new ArrayList<>();
+        DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
+        LocalDate currentDateTest = LocalDate.now();
         LocalDate client50YearsOldDob = currentDateTest.minusYears(50);
-        dataValidatorBuilderTest.validateMinimumClientAge(client50YearsOldDob);
-        Assert.assertTrue("Failed to confirm client with age of 50 years",dataValidationErrorsTest.size() == 0);
-    }  
+        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client50YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        Assert.assertTrue("Failed to confirm client with age of 50 years", dataValidationErrorsTest.isEmpty());
+
+
+    }
 }
 
     
