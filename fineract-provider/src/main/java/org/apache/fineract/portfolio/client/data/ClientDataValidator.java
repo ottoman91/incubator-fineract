@@ -186,10 +186,8 @@ public final class ClientDataValidator {
         //condition for setting minimum age of client at 18
           if (this.fromApiJsonHelper.parameterExists(ClientApiConstants.dateOfBirthParamName, element)) {
             final LocalDate dateOfBirth = this.fromApiJsonHelper.extractLocalDateNamed(ClientApiConstants.dateOfBirthParamName, element); 
-            final LocalDate currentDate = DateUtils.getLocalDateOfTenant();
-            final LocalDate maxClientDateOfBirth = currentDate.minusYears(18);
             baseDataValidator.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(dateOfBirth).notNull()
-                    .validateMinimumClientAge(maxClientDateOfBirth);
+                    .validateMinimumClientAge();
         }
 
 

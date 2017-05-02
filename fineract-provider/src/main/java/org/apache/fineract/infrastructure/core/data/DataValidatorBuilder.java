@@ -18,6 +18,8 @@
  */
 package org.apache.fineract.infrastructure.core.data;
 
+import org.apache.fineract.infrastructure.core.service.DateUtils;
+
 import com.google.gson.JsonArray;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.model.property.RRule;
@@ -950,11 +952,13 @@ public class DataValidatorBuilder {
     } 
 
 
-    public DataValidatorBuilder validateMinimumClientAge(final LocalDate date) {
+    public DataValidatorBuilder validateMinimumClientAge() {
         if (this.value == null && this.ignoreNullValue) { return this; }
 
-        if (this.value != null && date != null) {
+        if (this.value != null) {
             final LocalDate dateVal = (LocalDate) this.value;
+            final LocalDate currentDate = DateUtils.getLocalDateOfTenant();
+            final LocalDate date = currentDate.minusYears(18);
             if (date.isBefore(dateVal)) {
                 final StringBuilder validationErrorCode = new StringBuilder("validation.msg.").append(this.resource).append(".")
                         .append(this.parameter).append(".is.greater.than.the.minimum.allowed.date.of.birth");

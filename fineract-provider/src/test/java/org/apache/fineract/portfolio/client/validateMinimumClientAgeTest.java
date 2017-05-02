@@ -48,8 +48,7 @@ public class validateMinimumClientAgeTest {
         DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
         LocalDate currentDateTest = LocalDate.now();
         LocalDate client17YearsOldDob = currentDateTest.minusYears(17);
-        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
-        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client17YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client17YearsOldDob).notNull().validateMinimumClientAge();
         Assert.assertFalse("Failed to reject client with age of 17 years", dataValidationErrorsTest.isEmpty());
 
     }
@@ -63,8 +62,7 @@ public class validateMinimumClientAgeTest {
         DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
         LocalDate currentDateTest = LocalDate.now();
         LocalDate client18YearsOldDob = currentDateTest.minusYears(18);
-        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
-        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client18YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client18YearsOldDob).notNull().validateMinimumClientAge();
         Assert.assertTrue("Failed to confirm client with age of 18 years", dataValidationErrorsTest.isEmpty());
     }
 
@@ -75,8 +73,7 @@ public class validateMinimumClientAgeTest {
         DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
         LocalDate currentDateTest = LocalDate.now();
         LocalDate client19YearsOldDob = currentDateTest.minusYears(19);
-        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
-        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client19YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client19YearsOldDob).notNull().validateMinimumClientAge();
         Assert.assertTrue("Failed to confirm client with age of 19 years", dataValidationErrorsTest.isEmpty());
 
     }
@@ -88,8 +85,7 @@ public class validateMinimumClientAgeTest {
         DataValidatorBuilder dataValidatorBuilderTest = new DataValidatorBuilder(dataValidationErrorsTest);
         LocalDate currentDateTest = LocalDate.now();
         LocalDate client50YearsOldDob = currentDateTest.minusYears(50);
-        LocalDate maxClientDobAllowed = currentDateTest.minusYears(18);
-        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client50YearsOldDob).notNull().validateMinimumClientAge(maxClientDobAllowed);
+        dataValidatorBuilderTest.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(client50YearsOldDob).notNull().validateMinimumClientAge();
         Assert.assertTrue("Failed to confirm client with age of 50 years", dataValidationErrorsTest.isEmpty());
 
 
