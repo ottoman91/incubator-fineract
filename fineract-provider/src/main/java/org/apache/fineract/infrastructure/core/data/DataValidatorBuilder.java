@@ -956,7 +956,8 @@ public class DataValidatorBuilder {
         if (this.value != null && date != null) {
             final LocalDate dateVal = (LocalDate) this.value;
             if (date.isBefore(dateVal)) {
-                final String validationErrorCode = new String("The client is less than 18 years old");
+                final StringBuilder validationErrorCode = new StringBuilder("validation.msg.").append(this.resource).append(".")
+                        .append(this.parameter).append(".is.greater.than.the.minimum.allowed.date.of.birth");
                 final String defaultEnglishMessage = new String("The minimum age of a client must be 18");
                 final ApiParameterError error = ApiParameterError.parameterError(validationErrorCode.toString(),
                         defaultEnglishMessage.toString(), this.parameter, dateVal, date);
