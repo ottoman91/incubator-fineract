@@ -82,7 +82,7 @@ public interface ConfigurationDomainService {
     
     boolean isDailyTPTLimitEnabled();
 
-    boolean isMinimumClientAgeCheckEnabled();
+    Integer isMinimumClientAgeCheckEnabled();
     
     Long getDailyTPTLimit();
 

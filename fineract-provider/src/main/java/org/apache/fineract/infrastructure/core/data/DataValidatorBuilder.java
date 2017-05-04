@@ -952,13 +952,13 @@ public class DataValidatorBuilder {
     } 
 
 
-    public DataValidatorBuilder validateMinimumClientAge() {
+    public DataValidatorBuilder validateMinimumClientAge(Integer minimumClientAge) {
         if (this.value == null && this.ignoreNullValue) { return this; }
 
         if (this.value != null) {
             final LocalDate dateVal = (LocalDate) this.value;
             final LocalDate currentDate = DateUtils.getLocalDateOfTenant();
-            final LocalDate date = currentDate.minusYears(18);
+            final LocalDate date = currentDate.minusYears(minimumClientAge);
             if (date.isBefore(dateVal)) {
                 final StringBuilder validationErrorCode = new StringBuilder("validation.msg.").append(this.resource).append(".")
                         .append(this.parameter).append(".is.greater.than.the.minimum.allowed.date.of.birth");

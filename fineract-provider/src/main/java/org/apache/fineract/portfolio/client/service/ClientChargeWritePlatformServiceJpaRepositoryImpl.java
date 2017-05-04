@@ -134,7 +134,7 @@ public class ClientChargeWritePlatformServiceJpaRepositoryImpl implements Client
 
             validateDueDateOnWorkingDay(clientCharge, fmt);
             this.clientChargeRepository.saveAndFlush(clientCharge);
-            
+
             return new CommandProcessingResultBuilder() //
                     .withEntityId(clientCharge.getId()) //
                     .withOfficeId(clientCharge.getClient().getOffice().getId()) //
