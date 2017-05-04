@@ -81,6 +81,8 @@ public interface ConfigurationDomainService {
     boolean isChangeEmiIfRepaymentDateSameAsDisbursementDateEnabled();
     
     boolean isDailyTPTLimitEnabled();
+
+    boolean isMinimumClientAgeCheckEnabled();
     
     Long getDailyTPTLimit();
 

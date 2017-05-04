@@ -40,18 +40,25 @@ import org.apache.fineract.portfolio.client.api.ClientApiConstants;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.apache.fineract.infrastructure.configuration.domain.ConfigurationDomainService;
+
 
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import org.apache.fineract.infrastructure.configuration.domain.ConfigurationDomainService;
+
+
 
 @Component
 public final class ClientDataValidator {
 
     private final FromJsonHelper fromApiJsonHelper;
+    private final ConfigurationDomainService configurationDomainService;
 
     @Autowired
-    public ClientDataValidator(final FromJsonHelper fromApiJsonHelper) {
+    public ClientDataValidator(final FromJsonHelper fromApiJsonHelper, final ConfigurationDomainService configurationDomainService) {
         this.fromApiJsonHelper = fromApiJsonHelper;
+        this.configurationDomainService = configurationDomainService;
     }
 
     public void validateForCreate(final String json) {
@@ -184,11 +191,11 @@ public final class ClientDataValidator {
         } 
 
         //condition for setting minimum age of client at 18
-          if (this.fromApiJsonHelper.parameterExists(ClientApiConstants.dateOfBirthParamName, element)) {
-            final LocalDate dateOfBirth = this.fromApiJsonHelper.extractLocalDateNamed(ClientApiConstants.dateOfBirthParamName, element); 
+          if (this.configurationDomainService.isMinimumClientAgeCheckEnabled() && this.fromApiJsonHelper.parameterExists(ClientApiConstants.dateOfBirthParamName, element)) {
+            final LocalDate dateOfBirth = this.fromApiJsonHelper.extractLocalDateNamed(ClientApiConstants.dateOfBirthParamName, element);
             baseDataValidator.reset().parameter(ClientApiConstants.dateOfBirthParamName).value(dateOfBirth).notNull()
                     .validateMinimumClientAge();
-        }
+          }
 
 
 

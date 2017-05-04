@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Date;
 
 import org.apache.fineract.accounting.journalentry.service.JournalEntryWritePlatformService;
 import org.apache.fineract.infrastructure.configuration.domain.ConfigurationDomainService;
@@ -133,7 +134,7 @@ public class ClientChargeWritePlatformServiceJpaRepositoryImpl implements Client
 
             validateDueDateOnWorkingDay(clientCharge, fmt);
             this.clientChargeRepository.saveAndFlush(clientCharge);
-
+            
             return new CommandProcessingResultBuilder() //
                     .withEntityId(clientCharge.getId()) //
                     .withOfficeId(clientCharge.getClient().getOffice().getId()) //
@@ -420,6 +421,9 @@ public class ClientChargeWritePlatformServiceJpaRepositoryImpl implements Client
             }
         }
     }
+
+
+
 
     private AppUser getAppUserIfPresent() {
         AppUser user = null;
